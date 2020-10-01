@@ -15,12 +15,31 @@
  */
 package de.jcup.sttk.model.c4;
 
+import de.jcup.sttk.model.Direction;
+
 public class UsageDefinition {
 	
-	private Usage usage = new Usage();
+	Usage usage = new Usage();
 
 	public UsageDefinition https() {
-		usage.protocoll="https";
+		usage.protocol="https";
 		return this;
 	}
+	
+	public UsageDefinition isCalled() {
+		usage.direction=Direction.P1_IS_CALLED_BY_P2;
+		return this;
+	}
+	
+	public UsageDefinition isCalling() {
+		usage.direction=Direction.P1_CALLS_P2;
+		return this;
+	}
+	
+	public UsageDefinition isBidirectional() {
+		usage.direction=Direction.BIDIRECTIONAL;
+		return this;
+	}
+	
+	
 }

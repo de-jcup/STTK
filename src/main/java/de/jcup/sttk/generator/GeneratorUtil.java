@@ -52,11 +52,13 @@ public class GeneratorUtil {
 			throw new IllegalArgumentException("File may not be null!");
 		}
 		if (file.isDirectory()) {
-			throw new IOException("Cannot write to directory!");
+			throw new IOException("Cannot write to directory:"+file);
 		}
-		if (!file.isFile()) {
-			throw new IOException("Cannot write to something not being a file!");
-		}
+		File parentFile = file.getParentFile();
+		parentFile.mkdirs();
+//		if (!file.isFile()) {
+//			throw new IOException("Cannot write to something not being a file:"+file);
+//		}
 		if (file.exists()) {
 			if (overwrite) {
 				file.delete();

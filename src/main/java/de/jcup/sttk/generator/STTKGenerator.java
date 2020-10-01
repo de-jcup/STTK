@@ -22,6 +22,9 @@ import de.jcup.sttk.STTKModel;
 
 public interface STTKGenerator {
 
+	public static final String FILENAME_STTK_C4_SYSTEMCONTEXT = "sttk_c4_context.puml";
+
+	
 	public void generate(STTKModel model, Path targetPath) throws IOException;
 
 }

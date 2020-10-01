@@ -23,18 +23,18 @@ import de.jcup.sttk.model.c4.SystemContext;
 
 public class ExampleModel1 extends STTKModel{
 
-	private Identifier PERSONAL_BANKING_CUSTOMER = new Identifier("Personal Banking Customer", "A customer of the bank with personal bank accounts");
-	private Identifier INTERNET_BANKING_SYSTEM = new Identifier("Inernet Banking System");
-	private Identifier EMAIL_SYSTEM = new Identifier("Email System","The internal Microsoft Exchange e-mail system");
-	private Identifier MAINFRAME_BANKING_SYSTEM = new Identifier("Mainframe Banking System","Stores all of the core banking information about customers, accounts,transactions, etc.");
-	private Identifier BIG_BANK_PIC= new Identifier("Internet Banking System");
+	final static Identifier PERSONAL_BANKING_CUSTOMER = new Identifier("Personal Banking Customer", "A customer of the bank with personal bank accounts");
+	final static Identifier INTERNET_BANKING_SYSTEM = new Identifier("Inernet Banking System");
+	final static Identifier EMAIL_SYSTEM = new Identifier("Email System","The internal Microsoft Exchange e-mail system");
+	final static Identifier MAINFRAME_BANKING_SYSTEM = new Identifier("Mainframe Banking System","Stores all of the core banking information about customers, accounts,transactions, etc.");
+	final static Identifier BIG_BANK_PIC= new Identifier("Internet Banking System");
 	
-	private Identifier WEB_APPLICATION= new Identifier("Web application");
-	private Identifier SINGLE_PAGE_APPLICATION= new Identifier("Single Page Application");
-	private Identifier API_APPLICATION= new Identifier("API Application","Provides Internet banking functionality via a JSON/HTTPS API");
+	final static Identifier WEB_APPLICATION= new Identifier("Web application");
+	final static Identifier SINGLE_PAGE_APPLICATION= new Identifier("Single Page Application");
+	final static Identifier API_APPLICATION= new Identifier("API Application","Provides Internet banking functionality via a JSON/HTTPS API");
 	
-	private Identifier SPRING_BOOT= new Identifier("Spring Boot");
-	private Identifier JAVA= new Identifier("Java");
+	final static Identifier SPRING_BOOT= new Identifier("Spring Boot");
+	final static Identifier JAVA= new Identifier("Java");
 	
 
 	public ExampleModel1() {

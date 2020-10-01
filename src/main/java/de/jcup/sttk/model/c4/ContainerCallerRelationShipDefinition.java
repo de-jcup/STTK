@@ -27,10 +27,11 @@ public class ContainerCallerRelationShipDefinition<T extends Container> {
 		this.container=container;
 		this.caller=caller;
 	}
-
+	
 	public Container doing(String what, UsageDefinition usage) {
-		ContainerRelationShip relationShip = new ContainerRelationShip(what,usage);
-		/* FIXME de-jcup implement and think about usage*/
+		/* FIXME de-jcup : think about caller and direction here! I think we have to switch direction!*/
+		ContainerRelationShip relationShip = new ContainerRelationShip(what,container.getIdentifier(), caller,usage.usage);
+		container.relations.add(relationShip);
 		return container;
 	}
 }

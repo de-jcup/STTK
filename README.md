@@ -1,3 +1,5 @@
+![Gradle build](https://github.com/de-jcup/STTK/workflows/Gradle%20build/badge.svg)
+
 # STTK
 STTK - Security Threatmodel Toolkit
 

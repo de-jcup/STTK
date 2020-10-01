@@ -15,18 +15,32 @@
  */
 package de.jcup.sttk.example;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import de.jcup.sttk.STTK;
+import org.junit.jupiter.api.Test;
 
-public class GenerateExample1TestMain {
+import de.jcup.sttk.generator.STTKGenerator;
 
-	public static void main(String[] args) throws Exception{
-		Path targetPath  = Files.createTempDirectory("sttk");
+class GenerateExample1Test {
+
+	@Test
+	void main_can_be_started_and_c4_system_context_file_was_created() throws Exception {
 		
-		ExampleModel1 model = new ExampleModel1();
-		STTK.generator().build().generate(model,targetPath);
+		/* prepare */
+		GenerateExample1 generateExampleToTest = new GenerateExample1();
+		Path targetPath  = new File("build/sttk/example1").toPath();
 		
+		/* execute */
+		generateExampleToTest.generate(targetPath);
+
+		/* test */
+		File expectedFile=new File(targetPath.toFile(),STTKGenerator.FILENAME_STTK_C4_SYSTEMCONTEXT);
+		
+		assertTrue(expectedFile.exists());
 	}
+
 }
