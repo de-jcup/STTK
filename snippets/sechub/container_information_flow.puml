@@ -1,0 +1,54 @@
+@startuml C4_Elements
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/release/1-0/C4_Container.puml
+!include bidirectional.puml
+
+LAYOUT_WITH_LEGEND()
+
+Person(user, "User", "storage")
+Person(admin, "Administrator", "storage/processing")
+Person(developer, "Developer", "storage/processing")
+
+System_Boundary(sechub, "SecHub") {
+	Container(kubernetes, "Kubernetes Endpoint", "processing", "Administrative access")
+	Container(sechub_server, "SecHub Server", "processing", "Schedules scans for user.")
+	Container(db, "Database", "storage", "Stores scan and user information.")
+	Container(scan, "Scan", "processing/storage", "Does static application security testing (SAST).")
+	Container(zap, "OWASP ZAP", "processing", "Does dynamic application security testing (DAST).")
+	Container(w3af, "w3af", "processing", "Does dynamic application security testing (DAST).")
+	Container(openvas, "OpenVAS", "processing", "Does infrastructure scan of system.")    
+}
+
+System_Boundary(ci_cd, "CI/CD Server") {
+	Container(ci_cd_tool, "CI/CD Tool", "processing/storage", "Building, testing, deploying SecHub")
+	Container(docker, "Docker", "processing", "Building container images")
+	Container(ssh, "SSH", "processing", "For administrative access")
+}
+
+System_Ext(object_storage, "Object Storage", "storage")
+System_Ext(user_system, "User System", "transmission/storage/processing")
+System_Ext(container_registry, "Container Registry", "storage")
+System_Ext(git_server, "Git Server", "storage")
+System_Ext(logging, "Logging", "storage")
+
+Rel_B(user, sechub_server, "uses SecHub for security testing", "transmisson")
+Rel_B(sechub_server, object_storage, "stores source code", "transmisson")
+Rel_B(sechub_server, db, "stores user and scan information", "transmisson")
+Rel_B(sechub_server, scan, "scans source code", "transmisson")
+Rel_B(sechub_server, zap, "initiates scan", "transmisson")
+Rel_B(sechub_server, w3af, "initiates scan", "transmisson")
+Rel_B(sechub_server, openvas, "initiates scan", "transmisson")
+Rel_B(zap, user_system, "scans application", "transmisson")
+Rel_B(w3af, user_system, "scans application", "transmisson")
+Rel_B(openvas, user_system, "scans system", "transmisson")
+Rel_B(kubernetes, container_registry, "pulls containers", "transmisson")
+Rel_B(ci_cd_tool, kubernetes, "deploys sechub", "transmisson")
+Rel_B(docker, container_registry, "pushes container to registry", "transmisson")
+Rel_B(ci_cd_tool, git_server, "downloads source code", "transmisson")
+Rel_B(ci_cd_tool, docker, "initiates build of container", "transmisson")
+Rel_B(sechub_server, logging, "logs", "transmisson")
+Rel_B(db, logging, "logs", "transmisson")
+Rel_B(admin, ssh, "access", "transmisson")
+Rel_B(admin, kubernetes, "access", "transmisson")
+Rel_B(developer, ci_cd_tool, "builds", "transmisson")
+Rel_B(developer, git_server, "pushes code changes", "transmisson")
+@enduml

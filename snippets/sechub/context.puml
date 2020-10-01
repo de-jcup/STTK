@@ -1,0 +1,30 @@
+@startuml C4_Elements
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/release/1-0/C4_Context.puml
+
+LAYOUT_WITH_LEGEND()
+
+Person_Ext(user, "User", "The SecHub user")
+Person(admin, "Administrator", "The SecHub administrator")
+Person(developer, "Developer", "The SecHub developer")
+System(sechub, "SecHub", "The SecHub system")
+System_Ext(object_storage, "Object Storage", "The object storage")
+System_Ext(user_system, "User System", "A user system or systems to scan")
+System_Ext(container_registry, "Container Registry", "The container registry")
+System(ci_cd, "CI/CD server", "The Continues Intgeration and Continues Deployment server")
+System_Ext(git_server, "Git Server", "The git server with source code")
+System_Ext(logging, "Logging", "The log server")
+
+Rel(user, sechub, "uses SecHub for security testing")
+Rel(sechub, object_storage, "stores source code")
+Rel(sechub, user_system, "scans user system/application")
+Rel(sechub, container_registry, "pulls containers")
+Rel(ci_cd, sechub, "deploys sechub")
+Rel(ci_cd, container_registry, "pushes container to registry")
+Rel(ci_cd, git_server, "downloads source code")
+Rel(sechub, logging, "logs")
+Rel(admin, sechub, "administrates")
+Rel(admin, ci_cd, "administrates")
+Rel(developer, ci_cd, "builds")
+Rel(developer, git_server, "pushes code changes")
+
+@enduml

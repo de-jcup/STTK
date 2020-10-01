@@ -1,0 +1,4 @@
+!define Rel_B(e_from,e_to, e_label) Rel_(e_from,e_to, e_label, "--")
+!define Rel_B(e_from,e_to, e_label, e_techn) Rel_(e_from,e_to, e_label, e_techn, "--")
+!define Rel_Bidirectional(e_from,e_to, e_label) Rel_B(e_from,e_to, e_label)
+!define Rel_Bidirectional(e_from,e_to, e_label, e_techn) Rel_B(e_from,e_to, e_label, e_techn)
