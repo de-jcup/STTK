@@ -1,0 +1,8 @@
+@startuml context
+!include C4_Context.puml
+
+Person(administrator, "Administrator")
+System(jenkins, "Jenkins")
+Rel(administrator, jenkins, "Administrates Jenkins", "SSH")
+
+@enduml
