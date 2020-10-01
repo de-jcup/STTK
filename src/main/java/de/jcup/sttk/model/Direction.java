@@ -13,14 +13,14 @@
  * and limitations under the License.
  *
  */
-package de.jcup.sttk.model.c4;
+package de.jcup.sttk.model;
 
-import de.jcup.sttk.model.Identifier;
-
-public class ContainerRelationShip {
-
-	ContainerRelationShip(String what, Identifier part1, Identifier part2, Usage usage) {
-		// TODO Auto-generated constructor stub
-	}
-
+public enum Direction{
+	
+	P1_CALLS_P2,
+	
+	P1_IS_CALLED_BY_P2,
+	
+	BIDIRECTIONAL
+	
 }

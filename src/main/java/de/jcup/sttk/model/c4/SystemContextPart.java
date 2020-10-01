@@ -18,12 +18,12 @@ package de.jcup.sttk.model.c4;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.jcup.sttk.STTK;
 import de.jcup.sttk.model.AbstractIdentifiable;
 import de.jcup.sttk.model.Identifier;
 
 public abstract class SystemContextPart<T extends SystemContextPart<?>> extends AbstractIdentifiable implements ContainerRelationPart<T>{
 
-	
 	final List<SystemContextRelationship> relations = new ArrayList<>();
 	final SystemContext systemContext;
 	private SystemContextBoundary boundary;
@@ -34,7 +34,11 @@ public abstract class SystemContextPart<T extends SystemContextPart<?>> extends 
 	}
 	
 	public SystemContextRelationShipDefinition does(String what) {
-		return new SystemContextRelationShipDefinition(this);
+		return does(what, STTK.usage().isCalling());
+	}
+	
+	public SystemContextRelationShipDefinition does(String what, UsageDefinition usage) {
+		return new SystemContextRelationShipDefinition(what, this, usage);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -45,6 +49,10 @@ public abstract class SystemContextPart<T extends SystemContextPart<?>> extends 
 	
 	SystemContextBoundary getBoundaryOrNull(){
 		return boundary;
+	}
+	
+	public List<SystemContextRelationship> getRelations() {
+		return relations;
 	}
 
 }

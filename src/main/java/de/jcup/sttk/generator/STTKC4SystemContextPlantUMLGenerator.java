@@ -18,13 +18,20 @@ package de.jcup.sttk.generator;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Iterator;
+import java.util.List;
 
 import de.jcup.sttk.STTKModel;
+import de.jcup.sttk.model.Direction;
 import de.jcup.sttk.model.Identifier;
 import de.jcup.sttk.model.c4.Person;
+import de.jcup.sttk.model.c4.SystemContextPart;
+import de.jcup.sttk.model.c4.SystemContextRelationship;
+import de.jcup.sttk.model.c4.Usage;
 
 class STTKC4SystemContextPlantUMLGenerator implements STTKGenerator{
 
+	
 	@Override
 	public void generate(STTKModel model, Path targetFolder) throws IOException{
 		SourceBuilder sb = new SourceBuilder();
@@ -35,22 +42,56 @@ class STTKC4SystemContextPlantUMLGenerator implements STTKGenerator{
 		for (Person person: model.getSystemContext().getPeople()) {
 			Identifier identifier = person.getIdentifier();
 			sb.append("Person(").append(identifier.getId());
-			sb.append(",\"").append(identifier.getName()).append("\"").newLine();
+			sb.append(",\"").append(identifier.getName()).append("\")").newLine();
 		}
 		
-		for (de.jcup.sttk.model.c4.System person: model.getSystemContext().getSystems()) {
-			Identifier identifier = person.getIdentifier();
+		for (de.jcup.sttk.model.c4.System system: model.getSystemContext().getSystems()) {
+			Identifier identifier = system.getIdentifier();
 			sb.append("System(").append(identifier.getId());
-			sb.append(",\"").append(identifier.getName()).append("\"").newLine();
+			sb.append(",\"").append(identifier.getName()).append("\")").newLine();
 		}
 		
 		/* relations */
-		/* FIXME de-jcup implement!*/
+		for (Person person: model.getSystemContext().getPeople()) {
+			List<SystemContextRelationship> relations = person.getRelations();
+			addRelations(sb, relations);
+		}
+		for (de.jcup.sttk.model.c4.System system: model.getSystemContext().getSystems()) {
+			List<SystemContextRelationship> relations = system.getRelations();
+			addRelations(sb, relations);
+		}
+		
 		
 		sb.add("@enduml");
 		
-		GeneratorUtil.writeFile(sb.toString(), new File(targetFolder.toFile(), "c4_context.puml"));
+		GeneratorUtil.writeFile(sb.toString(), new File(targetFolder.toFile(), FILENAME_STTK_C4_SYSTEMCONTEXT));
 		
+	}
+
+	private void addRelations(SourceBuilder sb, List<SystemContextRelationship> relations) {
+		for (SystemContextRelationship relation: relations) {
+			Usage usage = relation.getUsage();
+			Direction direction = usage.getDirection();
+			SystemContextPart<?> part1 = relation.getPart1();
+			SystemContextPart<?> part2 = relation.getPart2();
+			
+			if (Direction.P1_CALLS_P2==direction) {
+				String part1Id = part1.getIdentifier().getId();
+				String part2Id = part2.getIdentifier().getId();
+				
+				sb.append("Rel(").append(part1Id).append(", ").append(part2Id);
+				sb.append(", \"").append(relation.getWhat());
+				sb.append("\"");
+				
+				Iterator<String> it = usage.buildTechnicalInfo().iterator();
+				while (it.hasNext()) {
+					sb.append(", \"");
+					sb.append(it.next());
+					sb.append("\"");
+				}
+				sb.add(")");
+			}
+		}
 	}
 
 	

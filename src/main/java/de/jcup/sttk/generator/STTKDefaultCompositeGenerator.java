@@ -27,13 +27,15 @@ class STTKDefaultCompositeGenerator implements STTKGenerator {
 
 	private static final Logger LOG = LoggerFactory.getLogger(STTKDefaultCompositeGenerator.class);
 
-	private STTKAsciidocGenerator asciidocGenerator;
-	private STTKC4SystemContextPlantUMLGenerator c4SystemContextPlantUMLGenerator;
+	private STTKCopyIncludeC4PlantUMLFilesGenerator includesCopyGenerator = new STTKCopyIncludeC4PlantUMLFilesGenerator();
+	private STTKAsciidocGenerator asciidocGenerator = new STTKAsciidocGenerator();
+	private STTKC4SystemContextPlantUMLGenerator c4SystemContextPlantUMLGenerator = new STTKC4SystemContextPlantUMLGenerator();
 
 	@Override
 	public void generate(STTKModel model, Path targetPath) throws IOException {
-		LOG.info("start output generationto {}",targetPath);
+		LOG.info("start output generation to {}",targetPath);
 		
+		includesCopyGenerator.generate(model, targetPath);
 		c4SystemContextPlantUMLGenerator.generate(model, targetPath);
 		asciidocGenerator.generate(model, targetPath);
 	}

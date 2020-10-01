@@ -13,14 +13,24 @@
  * and limitations under the License.
  *
  */
-package de.jcup.sttk.model.c4;
+package de.jcup.sttk.example;
 
-import de.jcup.sttk.model.Identifier;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-public class ContainerRelationShip {
+import de.jcup.sttk.STTK;
 
-	ContainerRelationShip(String what, Identifier part1, Identifier part2, Usage usage) {
-		// TODO Auto-generated constructor stub
+public class GenerateExample1 {
+
+	public static void main(String[] args) throws Exception{
+		Path targetPath  = Files.createTempDirectory("sttk");
+		new GenerateExample1().generate(targetPath);
+		
 	}
 
+	void generate(Path targetPath) throws Exception{
+		
+		ExampleModel1 model = new ExampleModel1();
+		STTK.generator().build().generate(model,targetPath);
+	}
 }

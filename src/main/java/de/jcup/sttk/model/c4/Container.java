@@ -18,12 +18,14 @@ package de.jcup.sttk.model.c4;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.jcup.sttk.STTK;
 import de.jcup.sttk.model.Identifier;
 import de.jcup.sttk.model.Technology;
 
 public class Container extends SystemPart {
 	
 	private List<Technology> technologies = new ArrayList<>();
+	List<ContainerRelationShip> relations = new ArrayList<>();
 
 	protected Container(Identifier id, System system) {
 		super(id, system);
@@ -45,7 +47,12 @@ public class Container extends SystemPart {
 	}
 	
 	public ContainerDoesRelationShipDefinition does(String what) {
-		return new ContainerDoesRelationShipDefinition(what, this);
+		return does(what, STTK.usage().isCalling());
 	}
+	
+	public ContainerDoesRelationShipDefinition does(String what, UsageDefinition usage) {
+		return new ContainerDoesRelationShipDefinition(what, this, usage);
+	}
+	
 
 }

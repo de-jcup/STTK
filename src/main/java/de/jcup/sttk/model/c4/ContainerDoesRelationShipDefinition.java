@@ -19,18 +19,20 @@ import de.jcup.sttk.model.Identifier;
 
 public class ContainerDoesRelationShipDefinition<T extends Container> {
 
-	private Container container;
+	private Container who;
 	private String what;
+	private UsageDefinition usage;
 
 
-	public ContainerDoesRelationShipDefinition(String what, Container container) {
+	ContainerDoesRelationShipDefinition(String what, Container who, UsageDefinition usage) {
 		this.what=what;
-		this.container=container;
+		this.who=who;
+		this.usage=usage;
 	}
 
-	public Container container(Identifier containerId) {
-		ContainerRelationShip relationShip = new ContainerRelationShip(what,null);
-		/* FIXME de-jcup implement and think about usage*/
-		return container;
+	public Container container(Identifier with) {
+		ContainerRelationShip relationShip = new ContainerRelationShip(what,who.getIdentifier(),with, usage.usage);
+		who.relations.add(relationShip);
+		return who;
 	}
 }

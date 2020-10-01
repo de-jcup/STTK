@@ -19,10 +19,31 @@ public class SystemContextRelationship {
 
 	private SystemContextPart part1;
 	private SystemContextPart part2;
+	private Usage usage;
+	private String what;
+	
 
-	public SystemContextRelationship(SystemContextPart part1, SystemContextPart part2) {
+	public SystemContextRelationship(String what, SystemContextPart part1, SystemContextPart part2, Usage usage) {
+		this.what=what;
 		this.part1=part1;
 		this.part2=part2;
+		this.usage=usage;
 	}
-
+	
+	public String getWhat() {
+		return what;
+	}
+	
+	public SystemContextPart getPart1() {
+		return part1;
+	}
+	
+	public SystemContextPart getPart2() {
+		return part2;
+	}
+	
+	public Usage getUsage() {
+		return usage;
+	}
+	
 }

@@ -15,8 +15,30 @@
  */
 package de.jcup.sttk.model.c4;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import de.jcup.sttk.model.Direction;
+
 public class Usage {
 
-	public String protocoll;
+	String protocol;
+	Direction direction;
+
+	public String getProtocoll() {
+		return protocol;
+	}
+
+	public Direction getDirection() {
+		return direction;
+	}
+
+	public List<String> buildTechnicalInfo() {
+		List<String> list = new ArrayList<String>();
+		if (protocol!=null) {
+			list.add(protocol);
+		}
+		return list;
+	}
 
 }
