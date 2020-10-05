@@ -5,7 +5,7 @@ public class NameToIdFactory {
 	private int count;
 	
 	/**
-	 * Creates with defeault name "id"
+	 * Creates with default name "id"
 	 * @return identifier - e.g. "id_0"
 	 */
 	public String create() {
@@ -18,17 +18,17 @@ public class NameToIdFactory {
 	 * @return identifier - e.g. "myname_0"
 	 */
 	public String create(String name) {
-		StringBuilder nameTranformed = new StringBuilder(); 
+		StringBuilder nameTransformed = new StringBuilder(); 
 		if (name!=null) {
 			for (char c : name.toCharArray()) {
 				if (Character.isLetterOrDigit(c)) {
-					nameTranformed.append(c);
+					nameTransformed.append(c);
 				}else {
-					nameTranformed.append('_');
+					nameTransformed.append('_');
 				}
 			}
 		}
-		String result = nameTranformed.toString().toLowerCase()+"_"+count;
+		String result = nameTransformed.toString().toLowerCase()+"_"+count;
 		
 		count++;
 		

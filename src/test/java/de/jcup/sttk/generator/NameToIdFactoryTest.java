@@ -23,6 +23,16 @@ class NameToIdFactoryTest {
 		assertEquals("id_0", id);
 	}
 	
+	
+	@Test
+	void factory_create_null_results_in__0() {
+		/* execute */
+		String id = factoryToTest.create(null);
+
+		/* test */
+		assertEquals("_0", id);
+	}
+	
 	@Test
 	void factory_with_given_name_translates_name_to_lowercase_and_replaces_all_parts_not_beeing_letters_or_numbers_with_underscore() {
 		/* execute */
@@ -44,7 +54,7 @@ class NameToIdFactoryTest {
 		assertEquals("id_1", secondId);
 		assertEquals("id_2", thirdId);
 	}
-
+	
 	@Test
 	void two_factory_start_both_with_id_0_even_when_one_has_already_build() {
 		NameToIdFactory anotherfactoryToTest = new NameToIdFactory();
