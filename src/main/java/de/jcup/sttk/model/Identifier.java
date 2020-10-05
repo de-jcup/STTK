@@ -15,12 +15,16 @@
  */
 package de.jcup.sttk.model;
 
+import de.jcup.sttk.generator.NameToIdFactory;
+
 public class Identifier {
 
+	/* we use shared instance of factory to have one incrementing counter in ids */
+	private static final NameToIdFactory SHARED_NAME_TO_ID_FACTORY = new NameToIdFactory();
+	
 	private String name;
 	private String details;
 	private String id;
-	private static int counter;
 
 	public Identifier(String name) {
 		this(name, null);
@@ -29,7 +33,7 @@ public class Identifier {
 	public Identifier(String name, String details) {
 		this.name = name;
 		this.details = details;
-		this.id="id_"+counter++;
+		this.id=SHARED_NAME_TO_ID_FACTORY.create(name);
 	}
 
 	public String getId() {
