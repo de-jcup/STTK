@@ -22,16 +22,20 @@ import de.jcup.sttk.model.Identifier;
 
 public class System extends SystemContextPart<System> {
 
-	boolean alreadyExisting;
+	boolean external;
 	private Map<Identifier,Container> container = new LinkedHashMap<>();
 	
 	public System(Identifier id, SystemContext systemContext) {
 		super(id, systemContext);
 	}
-
-	public System alreadyExists() {
-		this.alreadyExisting=true;
+	
+	public System markAsExternal() {
+		external=true;
 		return this;
+	}
+
+	public boolean isExternal() {
+		return external;
 	}
 	
 	public class SystemLevel2{

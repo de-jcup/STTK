@@ -47,7 +47,11 @@ class STTKC4SystemContextPlantUMLGenerator implements STTKGenerator{
 		
 		for (de.jcup.sttk.model.c4.System system: model.getSystemContext().getSystems()) {
 			Identifier identifier = system.getIdentifier();
-			sb.append("System(").append(identifier.getId());
+			if (system.isExternal()) {
+				sb.append("System_Ext(").append(identifier.getId());
+			}else {
+				sb.append("System(").append(identifier.getId());
+			}
 			sb.append(",\"").append(identifier.getName()).append("\")").newLine();
 		}
 		

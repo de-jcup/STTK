@@ -42,6 +42,13 @@ public class ExampleModel1 extends STTKModel{
 		getTechnology(SPRING_BOOT).setVersion("2.0.0");
 		getTechnology(JAVA).setVersion("8");
 		
+		defineSystemContext();
+		defineBankingSystemContainers();
+		/* @formatter:on */
+		
+	}
+
+	private void defineSystemContext() {
 		SystemContext sc = getSystemContext();
 		
 		/* @formatter:off */
@@ -53,22 +60,20 @@ public class ExampleModel1 extends STTKModel{
 			does("Sends e-mail using").system(EMAIL_SYSTEM).
 		    does("Uses").system(MAINFRAME_BANKING_SYSTEM);
 		
-		sc.system(EMAIL_SYSTEM).
+		sc.system(EMAIL_SYSTEM).markAsExternal().
 			inBoundary(BIG_BANK_PIC).
 			does("Sends e-mails to").person(PERSONAL_BANKING_CUSTOMER);
 		
 		sc.system(MAINFRAME_BANKING_SYSTEM).
-			inBoundary(BIG_BANK_PIC).
-			alreadyExists();
+		    markAsExternal().
+			inBoundary(BIG_BANK_PIC);
 		
-		defineBankingSystemContainers(sc);
-		
-		/* @formatter:on */
 		
 	}
 
 	/* @formatter:off */
-	private void defineBankingSystemContainers(SystemContext sc) {
+	private void defineBankingSystemContainers() {
+		SystemContext sc = getSystemContext();
 		// https://c4model.com/img/bigbankplc-Containers.png
 		sc.system(INTERNET_BANKING_SYSTEM).zoomIn().
 			
