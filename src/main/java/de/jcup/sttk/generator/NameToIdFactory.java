@@ -2,22 +2,15 @@ package de.jcup.sttk.generator;
 
 public class NameToIdFactory {
 	
-	private int count;
-	
-	/**
-	 * Creates with default name "id"
-	 * @return identifier - e.g. "id_0"
-	 */
-	public String create() {
-		return create("id");
-	}
-
 	/**
 	 * Creates identifier for given name
 	 * @param name
-	 * @return identifier - e.g. "myname_0"
+	 * @return identifier - e.g. "myname_0". when name is <code>null</code> a "null" is returned
 	 */
 	public String create(String name) {
+		if (name==null) {
+			return "null";
+		}
 		StringBuilder nameTransformed = new StringBuilder(); 
 		if (name!=null) {
 			for (char c : name.toCharArray()) {
@@ -28,9 +21,7 @@ public class NameToIdFactory {
 				}
 			}
 		}
-		String result = nameTransformed.toString().toLowerCase()+"_"+count;
-		
-		count++;
+		String result = nameTransformed.toString().toLowerCase();
 		
 		return result;
 	}

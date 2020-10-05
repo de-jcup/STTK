@@ -15,12 +15,17 @@
  */
 package de.jcup.sttk.model;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import de.jcup.sttk.generator.NameToIdFactory;
 
 public class Identifier {
 
 	/* we use shared instance of factory to have one incrementing counter in ids */
 	private static final NameToIdFactory SHARED_NAME_TO_ID_FACTORY = new NameToIdFactory();
+	
+	private static Map<String, Identifier> existigIdsMap = new LinkedHashMap<>();
 	
 	private String name;
 	private String details;
@@ -29,11 +34,22 @@ public class Identifier {
 	public Identifier(String name) {
 		this(name, null);
 	}
-
 	public Identifier(String name, String details) {
+		this(name,details,null);
+	}
+
+	public Identifier(String name, String details, String variant) {
 		this.name = name;
 		this.details = details;
-		this.id=SHARED_NAME_TO_ID_FACTORY.create(name);
+		String potentialId=SHARED_NAME_TO_ID_FACTORY.create(name);
+		if (variant!=null) {
+			potentialId=potentialId+SHARED_NAME_TO_ID_FACTORY.create(variant);
+		}
+		
+		if (existigIdsMap.containsKey(potentialId)) {
+			throw new IllegalStateException("exists already id:"+potentialId);
+		}
+		this.id=potentialId;
 	}
 
 	public String getId() {
