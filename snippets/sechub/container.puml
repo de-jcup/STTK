@@ -1,10 +1,10 @@
-@startuml C4_Elements
+@startuml container
 !includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/release/1-0/C4_Container.puml
 
 LAYOUT_WITH_LEGEND()
 
 Person(user, "User", "The SecHub user")
-Person(admin, "Administrator", "The SecHub administrator")
+Person(admin, "Administrator", "The system administrator")
 Person(developer, "Developer", "The SecHub developer")
 
 System_Boundary(sechub, "SecHub") {
