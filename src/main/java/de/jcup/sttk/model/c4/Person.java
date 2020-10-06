@@ -18,9 +18,18 @@ package de.jcup.sttk.model.c4;
 import de.jcup.sttk.model.Identifier;
 
 public class Person extends SystemContextPart<Person> {
+	boolean external;
 
-	public Person(Identifier id,SystemContext systemContext) {
-		super(id,systemContext);
+	public boolean isExternal() {
+		return external;
 	}
 
+	public Person(Identifier id, SystemContext systemContext) {
+		super(id, systemContext);
+	}
+
+	public Person markAsExternal() {
+		external = true;
+		return this;
+	}
 }

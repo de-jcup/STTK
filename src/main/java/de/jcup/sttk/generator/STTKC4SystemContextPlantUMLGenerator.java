@@ -38,10 +38,16 @@ class STTKC4SystemContextPlantUMLGenerator implements STTKGenerator{
 		
 		sb.add("@startuml context");
 		sb.add("!include C4_Context.puml");
+		sb.add("LAYOUT_WITH_LEGEND()");
 		
 		for (Person person: model.getSystemContext().getPeople()) {
 			Identifier identifier = person.getIdentifier();
-			sb.append("Person(").append(identifier.getId());
+			if (person.isExternal()) {
+				sb.append("Person_Ext(").append(identifier.getId());
+			} else {
+				sb.append("Person(").append(identifier.getId());
+			}
+			
 			sb.append(",\"").append(identifier.getName()).append("\")").newLine();
 		}
 		
