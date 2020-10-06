@@ -16,18 +16,20 @@
 package de.jcup.sttk.model.c4;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import de.jcup.sttk.STTKModel;
 import de.jcup.sttk.model.Identifier;
 
 public class SystemContext {
 	
-	private Map<Identifier,System> systems = new LinkedHashMap<>();
-	private Map<Identifier,Person> people= new LinkedHashMap<>();
-	private Map<Identifier,SystemContextBoundary> boundary= new LinkedHashMap<>();
-	
+	private Map<Identifier, System> systems = new HashMap<>();
+	private Map<Identifier, Person> people = new HashMap<>();
+	private Map<Identifier, SystemContextBoundary> boundary = new LinkedHashMap<>();
+
 	STTKModel model;
 
 	public SystemContext(STTKModel model) {
@@ -57,6 +59,14 @@ public class SystemContext {
 	private SystemContextBoundary createBoundary(Identifier id) {
 		return new SystemContextBoundary(id,this);
 	}
+	
+//	public Optional<Person> getPerson(Identifier id) {
+//		return Optional.ofNullable(people.get(id));
+//	}
+//	
+//	public Optional<System> getSystem(Identifier id) {
+//		return Optional.ofNullable(systems.get(id));
+//	}
 
 	public Collection<Person> getPeople() {
 		return people.values();

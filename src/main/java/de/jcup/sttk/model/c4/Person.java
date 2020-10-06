@@ -17,8 +17,8 @@ package de.jcup.sttk.model.c4;
 
 import de.jcup.sttk.model.Identifier;
 
-public class Person extends SystemContextPart<Person> {
-	boolean external;
+public class Person extends SystemContextPart<Person> implements Externalizable {
+	private boolean external;
 
 	public boolean isExternal() {
 		return external;

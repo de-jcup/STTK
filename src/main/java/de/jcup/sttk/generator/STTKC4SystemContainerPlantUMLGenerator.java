@@ -29,15 +29,15 @@ import de.jcup.sttk.model.c4.SystemContextPart;
 import de.jcup.sttk.model.c4.SystemContextRelationship;
 import de.jcup.sttk.model.c4.Usage;
 
-class STTKC4SystemContextPlantUMLGenerator implements STTKGenerator{
+class STTKC4SystemContainerPlantUMLGenerator implements STTKGenerator{
 
 	
 	@Override
 	public void generate(STTKModel model, Path targetFolder) throws IOException{
 		SourceBuilder sb = new SourceBuilder();
 		
-		sb.add("@startuml context");
-		sb.add("!include C4_Context.puml");
+		sb.add("@startuml container");
+		sb.add("!include C4_Container.puml");
 		sb.add("LAYOUT_WITH_LEGEND()");
 		
 		for (Person person: model.getSystemContext().getPeople()) {

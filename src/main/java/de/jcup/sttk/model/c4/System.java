@@ -15,15 +15,16 @@
  */
 package de.jcup.sttk.model.c4;
 
-import java.util.LinkedHashMap;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import de.jcup.sttk.model.Identifier;
 
-public class System extends SystemContextPart<System> {
+public class System extends SystemContextPart<System> implements Externalizable {
 
-	boolean external;
-	private Map<Identifier,Container> container = new LinkedHashMap<>();
+	private boolean external;
+	private Map<Identifier, Container> containers = new HashMap<>();
 	
 	public System(Identifier id, SystemContext systemContext) {
 		super(id, systemContext);
@@ -41,7 +42,7 @@ public class System extends SystemContextPart<System> {
 	public class SystemLevel2{
 		
 		public Container container(Identifier containerId) {
-			return container.computeIfAbsent(containerId,this::createContainer);
+			return containers.computeIfAbsent(containerId,this::createContainer);
 		}
 		
 		public System zoomOut() {
@@ -57,5 +58,7 @@ public class System extends SystemContextPart<System> {
 		return new SystemLevel2();
 	}
 
-
+	public Collection<Container> getContainers() {
+		return containers.values();
+	}
 }

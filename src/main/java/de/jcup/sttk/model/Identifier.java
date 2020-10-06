@@ -28,19 +28,19 @@ public class Identifier {
 	private static Map<String, Identifier> existigIdsMap = new LinkedHashMap<>();
 	
 	private String name;
-	private String details;
+	private String description;
 	private String id;
 
 	public Identifier(String name) {
 		this(name, null);
 	}
-	public Identifier(String name, String details) {
-		this(name,details,null);
+	public Identifier(String name, String description) {
+		this(name,description,null);
 	}
 
-	public Identifier(String name, String details, String variant) {
+	public Identifier(String name, String description, String variant) {
 		this.name = name;
-		this.details = details;
+		this.description = description;
 		String potentialId=SHARED_NAME_TO_ID_FACTORY.create(name);
 		if (variant!=null) {
 			potentialId=potentialId+SHARED_NAME_TO_ID_FACTORY.create(variant);
@@ -60,7 +60,7 @@ public class Identifier {
 		return name;
 	}
 
-	public String getDetails() {
-		return details;
+	public String getDescription() {
+		return description;
 	}
 }
