@@ -52,7 +52,7 @@ class STTKC4SystemContextPlantUMLGenerator implements STTKGenerator{
 			
 			String description = person.getIdentifier().getDescription();
 
-			if (!description.isEmpty()) {
+			if (description != null && !description.isEmpty()) {
 				sb.append("\", \"").append(description);
 			}
 			
@@ -71,7 +71,7 @@ class STTKC4SystemContextPlantUMLGenerator implements STTKGenerator{
 
 			String description = system.getIdentifier().getDescription();
 
-			if (!description.isEmpty()) {
+			if (description != null && !description.isEmpty()) {
 				sb.append("\", \"").append(description);
 			}
 
