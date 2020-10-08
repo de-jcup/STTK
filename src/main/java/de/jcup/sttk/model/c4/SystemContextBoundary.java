@@ -18,13 +18,13 @@ package de.jcup.sttk.model.c4;
 import de.jcup.sttk.model.AbstractIdentifiable;
 import de.jcup.sttk.model.Identifier;
 
-public class SystemContextBoundary extends AbstractIdentifiable{
+public class SystemContextBoundary extends AbstractIdentifiable {
 
 	private SystemContext systemContext;
 
 	protected SystemContextBoundary(Identifier id, SystemContext systemContext) {
 		super(id);
-		this.systemContext=systemContext;
+		this.systemContext = systemContext;
 	}
 
 }
