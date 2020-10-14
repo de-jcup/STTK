@@ -15,16 +15,30 @@
  */
 package de.jcup.sttk.model.c4;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import de.jcup.sttk.model.AbstractIdentifiable;
 import de.jcup.sttk.model.Identifier;
 
-public class SystemContextBoundary extends AbstractIdentifiable {
+//TODO this class needs to be worked on
+//Their can be a container boundary as well, it probably needs a general boundary class
+public class ContextBoundary extends AbstractIdentifiable {
 
 	private SystemContext systemContext;
+	private Set<Identifier> elementsInBoundary = new HashSet<>();
 
-	protected SystemContextBoundary(Identifier id, SystemContext systemContext) {
+	protected ContextBoundary(Identifier id, SystemContext systemContext) {
 		super(id);
 		this.systemContext = systemContext;
 	}
+	
+	//TODO is this really a good idea?
+	protected boolean addElement(Identifier identifier) {
+		return elementsInBoundary.add(identifier);
+	}
 
+	public Set<Identifier> getElements() {
+		return elementsInBoundary;
+	}
 }

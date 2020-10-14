@@ -17,6 +17,12 @@ package de.jcup.sttk.model.c4;
 
 import de.jcup.sttk.model.Identifier;
 
+/**
+ * A Person in the C4.
+ * 
+ * A Person can be internal or external in the C4 model.
+ *
+ */
 public class Person extends SystemContextPart<Person> implements Externalizable {
 	private boolean external;
 

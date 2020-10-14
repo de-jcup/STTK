@@ -28,7 +28,7 @@ public class SystemContext {
 	
 	private Map<Identifier, System> systems = new HashMap<>();
 	private Map<Identifier, Person> people = new HashMap<>();
-	private Map<Identifier, SystemContextBoundary> boundaries = new HashMap<>();
+	private Map<Identifier, ContextBoundary> boundaries = new HashMap<>();
 
 	STTKModel model;
 
@@ -52,12 +52,12 @@ public class SystemContext {
 		return new Person(id,this);
 	}
 
-	public SystemContextBoundary boundary(Identifier id) {
+	public ContextBoundary boundary(Identifier id) {
 		return boundaries.computeIfAbsent(id, this::createBoundary);
 	}
 	
-	private SystemContextBoundary createBoundary(Identifier id) {
-		return new SystemContextBoundary(id,this);
+	private ContextBoundary createBoundary(Identifier id) {
+		return new ContextBoundary(id,this);
 	}
 	
 //	public Optional<Person> getPerson(Identifier id) {
@@ -76,7 +76,7 @@ public class SystemContext {
 		return systems.values();
 	}
 	
-	public Collection<SystemContextBoundary> getBoundries() {
+	public Collection<ContextBoundary> getBoundries() {
 		return boundaries.values();
 	}
 }

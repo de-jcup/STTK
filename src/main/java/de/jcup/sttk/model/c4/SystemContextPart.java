@@ -26,7 +26,7 @@ public abstract class SystemContextPart<T extends SystemContextPart<?>> extends 
 
 	final List<SystemContextRelationship> relations = new ArrayList<>();
 	final SystemContext systemContext;
-	private SystemContextBoundary boundary;
+	private ContextBoundary boundary;
 	
 	protected SystemContextPart(Identifier id, SystemContext systemContext) {
 		super(id);
@@ -44,10 +44,11 @@ public abstract class SystemContextPart<T extends SystemContextPart<?>> extends 
 	@SuppressWarnings("unchecked")
 	public T inBoundary(Identifier boundaryId) {
 		this.boundary=systemContext.boundary(boundaryId);
+		this.boundary.addElement(this.getIdentifier());
 		return (T) this;
 	}
 	
-	SystemContextBoundary getBoundaryOrNull(){
+	ContextBoundary getBoundaryOrNull(){
 		return boundary;
 	}
 	

@@ -25,7 +25,7 @@ import de.jcup.sttk.STTKModel;
 import de.jcup.sttk.model.Direction;
 import de.jcup.sttk.model.Identifier;
 import de.jcup.sttk.model.c4.Person;
-import de.jcup.sttk.model.c4.SystemContextBoundary;
+import de.jcup.sttk.model.c4.ContextBoundary;
 import de.jcup.sttk.model.c4.SystemContextPart;
 import de.jcup.sttk.model.c4.SystemContextRelationship;
 import de.jcup.sttk.model.c4.Usage;
@@ -79,7 +79,7 @@ class STTKC4SystemContextPlantUMLGenerator implements STTKGenerator{
 			sb.append("\")").newLine();
 		}
 		
-		for(SystemContextBoundary boundary : model.getSystemContext().getBoundries()) {
+		for(ContextBoundary boundary : model.getSystemContext().getBoundries()) {
 			Identifier identifier = boundary.getIdentifier();
 			sb.append("Boundary(").append(identifier.getId());
 
@@ -87,7 +87,8 @@ class STTKC4SystemContextPlantUMLGenerator implements STTKGenerator{
 
 			sb.append("\") {").newLine();
 			
-
+			//TODO add the systems/person in the boundary
+			
 			
 			sb.append("}").newLine();
 		}
