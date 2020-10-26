@@ -17,10 +17,7 @@ package de.jcup.sttk.model.c4;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Optional;
-
 import de.jcup.sttk.STTKModel;
 import de.jcup.sttk.model.Identifier;
 
@@ -29,6 +26,12 @@ public class SystemContext {
 	private Map<Identifier, System> systems = new HashMap<>();
 	private Map<Identifier, Person> people = new HashMap<>();
 	private Map<Identifier, ContextBoundary> boundaries = new HashMap<>();
+	
+	private Map<Identifier, SystemContextPart<?>> parts = new HashMap<>();
+
+	public Map<Identifier, SystemContextPart<?>> getParts() {
+		return parts;
+	}
 
 	STTKModel model;
 
@@ -37,27 +40,34 @@ public class SystemContext {
 	}
 
 	public System system(Identifier id) {
-		return systems.computeIfAbsent(id, this::createSystem);
+		//return systems.computeIfAbsent(id, this::createSystem);
+		return (System) parts.computeIfAbsent(id, this::createSystem);
 	}
 	
 	private System createSystem(Identifier id) {
-		return new System(id,this);
+		return new System(id, this);
 	}
-	
+
 	public Person person(Identifier id) {
-		return people.computeIfAbsent(id, this::createPerson);
+		// return people.computeIfAbsent(id, this::createPerson);
+		return (Person) parts.computeIfAbsent(id, this::createPerson);
 	}
-	
+
 	private Person createPerson(Identifier id) {
-		return new Person(id,this);
+		return new Person(id, this);
 	}
 
 	public ContextBoundary boundary(Identifier id) {
-		return boundaries.computeIfAbsent(id, this::createBoundary);
+		// return boundaries.computeIfAbsent(id, this::createBoundary);
+		return (ContextBoundary) parts.computeIfAbsent(id, this::createBoundary);
+	}
+
+	private ContextBoundary createBoundary(Identifier id) {
+		return new ContextBoundary(id, this);
 	}
 	
-	private ContextBoundary createBoundary(Identifier id) {
-		return new ContextBoundary(id,this);
+	protected void remove(Identifier id, SystemContextPart<?> part) {
+		parts.remove(id, part);
 	}
 	
 //	public Optional<Person> getPerson(Identifier id) {

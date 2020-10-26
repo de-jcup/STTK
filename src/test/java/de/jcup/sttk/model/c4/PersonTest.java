@@ -32,7 +32,6 @@ public class PersonTest {
 		assertNotNull(person);
 		assertFalse(person.isExternal());
 		assertEquals(identfier, person.getIdentifier());
-		assertNull(person.getBoundaryOrNull());
 	}
 	
 	@Test

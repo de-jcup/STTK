@@ -15,7 +15,9 @@
  */
 package de.jcup.sttk.model.c4;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import de.jcup.sttk.model.AbstractIdentifiable;
@@ -23,22 +25,29 @@ import de.jcup.sttk.model.Identifier;
 
 //TODO this class needs to be worked on
 //Their can be a container boundary as well, it probably needs a general boundary class
-public class ContextBoundary extends AbstractIdentifiable {
+public class ContextBoundary extends SystemContextPart<ContextBoundary> {
 
-	private SystemContext systemContext;
-	private Set<Identifier> elementsInBoundary = new HashSet<>();
+	private Map<Identifier, SystemContextPart<?>> partsInBoundary = new HashMap<>();
 
 	protected ContextBoundary(Identifier id, SystemContext systemContext) {
-		super(id);
-		this.systemContext = systemContext;
+		super(id, systemContext);
 	}
 	
 	//TODO is this really a good idea?
-	protected boolean addElement(Identifier identifier) {
-		return elementsInBoundary.add(identifier);
+	protected SystemContextPart<?> addPart(SystemContextPart<?> part) {
+		return partsInBoundary.putIfAbsent(part.getIdentifier(), part);
 	}
 
-	public Set<Identifier> getElements() {
-		return elementsInBoundary;
+	public Map<Identifier, SystemContextPart<?>> getParts() {
+		return partsInBoundary;
+	}
+	
+	public boolean containsElements() {
+		return !partsInBoundary.isEmpty();
+	}
+
+	@Override
+	public String toString() {
+		return "ContextBoundary [" + this.getIdentifier().getName() + "]";
 	}
 }

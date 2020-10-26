@@ -61,4 +61,9 @@ public class System extends SystemContextPart<System> implements Externalizable 
 	public Collection<Container> getContainers() {
 		return containers.values();
 	}
+	
+	@Override
+	public String toString() {
+		return "System [" + this.getIdentifier().getName() + ", external=" + external + ", containers=" + containers + "]";
+	}
 }

@@ -38,4 +38,9 @@ public class Person extends SystemContextPart<Person> implements Externalizable 
 		external = true;
 		return this;
 	}
+	
+	@Override
+	public String toString() {
+		return "Person [" + getIdentifier().getName() + ", external=" + external + "]";
+	}
 }
