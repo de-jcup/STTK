@@ -61,9 +61,13 @@ public class SystemContextTest {
 		Map<Identifier, SystemContextPart<?>> parts = systemContext.getParts();
 		
 		/* Test */
-		assertEquals(3, parts.size());
+		assertEquals(4, parts.size());
+		
+		System systemA = (System) parts.getOrDefault(systemAId, null);
+		assertTrue(systemA.isInBoundary());
 		
 		ContextBoundary contextBoundary = (ContextBoundary) parts.getOrDefault(companyId, null);
 		assertEquals(1, contextBoundary.getParts().size());
+		assertEquals(contextBoundary, systemA.getBoundaryOrNull());
 	}
 }

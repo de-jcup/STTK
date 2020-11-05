@@ -45,13 +45,23 @@ public abstract class SystemContextPart<T extends SystemContextPart<?>> extends 
 	public T inBoundary(Identifier boundaryId) {
 		this.boundary=systemContext.boundary(boundaryId);
 		this.boundary.addPart(this);
-		systemContext.remove(this.getIdentifier(), this);
+		//systemContext.remove(this.getIdentifier(), this);
 		return (T) this;
 	}
 	
-//	ContextBoundary getBoundaryOrNull(){
-//		return boundary;
-//	}
+	ContextBoundary getBoundaryOrNull() {
+		return boundary;
+	}
+	
+	public boolean isInBoundary() {
+		boolean inBoundary = false;
+		
+		if (boundary != null) {
+			inBoundary = true;
+		}
+		
+		return inBoundary;
+	}
 	
 	public List<SystemContextRelationship> getRelations() {
 		return relations;

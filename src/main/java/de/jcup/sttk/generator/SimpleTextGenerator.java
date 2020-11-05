@@ -21,28 +21,30 @@ public class SimpleTextGenerator {
 		for (Map.Entry<Identifier,SystemContextPart<?>> entry : elements.entrySet()) {
 			SystemContextPart<?> part = entry.getValue();
 			
-			if (part.getClass() == Person.class) {
-				sb.add(part.toString());
-			} else if (part.getClass() == System.class) {
-				sb.add(part.toString());
-			} else if (part.getClass() == ContextBoundary.class) {
-				sb.add(part.toString());
-				sb.add("start");
-				
-				ContextBoundary context = (ContextBoundary) part;
-				
-				for (Map.Entry<Identifier,SystemContextPart<?>> contextEntry : context.getParts().entrySet()) {
-					SystemContextPart<?> contextPart = contextEntry.getValue();
+			if (!part.isInBoundary()) {
+				if (part.getClass() == Person.class) {
+					sb.add(part.toString());
+				} else if (part.getClass() == System.class) {
+					sb.add(part.toString());
+				} else if (part.getClass() == ContextBoundary.class) {
+					sb.add(part.toString());
+					sb.add("start");
 					
-					if (contextPart.getClass() == Person.class) {
-						sb.add("\t" + contextPart.toString());
-					} else if (contextPart.getClass() == System.class) {
-						sb.add("\t" + contextPart.toString());
+					ContextBoundary context = (ContextBoundary) part;
+					
+					for (Map.Entry<Identifier,SystemContextPart<?>> contextEntry : context.getParts().entrySet()) {
+						SystemContextPart<?> contextPart = contextEntry.getValue();
+						
+						if (contextPart.getClass() == Person.class) {
+							sb.add("\t" + contextPart.toString());
+						} else if (contextPart.getClass() == System.class) {
+							sb.add("\t" + contextPart.toString());
+						}
 					}
+					
+					sb.add("end");
+					
 				}
-				
-				sb.add("end");
-				
 			}
 		}
 		

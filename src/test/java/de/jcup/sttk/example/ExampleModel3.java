@@ -12,11 +12,11 @@ public class ExampleModel3 extends STTKModel {
 	
 	public ExampleModel3() {
 		SystemContext sc = getSystemContext();
-		
+
 		sc.person(PERSON_INTERNAL).inBoundary(BOUNDARY_COMPANY).does("uses").system(SYSTEM_INTERNAL);
-		
+
 		sc.system(SYSTEM_INTERNAL).inBoundary(BOUNDARY_COMPANY);
-		
+
 		sc.person(PERSON_EXTERAL).markAsExternal().does("uses").system(SYSTEM_INTERNAL);
 	}
 }
