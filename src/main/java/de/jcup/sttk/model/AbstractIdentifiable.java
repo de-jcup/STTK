@@ -15,7 +15,7 @@
  */
 package de.jcup.sttk.model;
 
-public class AbstractIdentifiable implements Identifiable{
+public abstract class AbstractIdentifiable implements Identifiable, STTKNode{
 	
 	private final Identifier id;
 
@@ -27,5 +27,8 @@ public class AbstractIdentifiable implements Identifiable{
 	public Identifier getIdentifier() {
 		return id;
 	}
+	
+	
+	
 
 }

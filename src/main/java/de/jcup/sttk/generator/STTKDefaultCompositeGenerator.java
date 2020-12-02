@@ -31,12 +31,16 @@ class STTKDefaultCompositeGenerator implements STTKGenerator {
 	private STTKAsciidocGenerator asciidocGenerator = new STTKAsciidocGenerator();
 	private STTKC4SystemContextPlantUMLGenerator c4SystemContextPlantUMLGenerator = new STTKC4SystemContextPlantUMLGenerator();
 
+	boolean c4Enabled;
+
 	@Override
 	public void generate(STTKModel model, Path targetPath) throws IOException {
 		LOG.info("start output generation to {}",targetPath);
 		
 		includesCopyGenerator.generate(model, targetPath);
-		c4SystemContextPlantUMLGenerator.generate(model, targetPath);
+		if (c4Enabled) {
+			c4SystemContextPlantUMLGenerator.generate(model, targetPath);
+		}
 		asciidocGenerator.generate(model, targetPath);
 	}
 

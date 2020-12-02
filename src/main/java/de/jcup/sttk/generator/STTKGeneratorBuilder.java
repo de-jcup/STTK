@@ -17,14 +17,29 @@ package de.jcup.sttk.generator;
 
 public class STTKGeneratorBuilder {
 
+	private boolean c4Enabled;
+	private boolean simpleTextEnabled;
+
 	public STTKGeneratorBuilder() {
 	}
 
+	
+	public STTKGeneratorBuilder enableC4() {
+		c4Enabled=true;
+		return this;
+	}
+
+	
+	public STTKGeneratorBuilder enableSimpleText() {
+		simpleTextEnabled=true;
+		return this;
+	}
+	
 	public STTKGenerator build() {
 		// currently we do just return always a new instance of asciidoctor generator,
 		// without any special handling
 		STTKDefaultCompositeGenerator generator = new STTKDefaultCompositeGenerator();
-
+		generator.c4Enabled=c4Enabled;
 		return generator;
 	}
 
