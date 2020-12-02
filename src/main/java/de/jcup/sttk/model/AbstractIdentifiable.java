@@ -15,9 +15,12 @@
  */
 package de.jcup.sttk.model;
 
-public abstract class AbstractIdentifiable implements Identifiable, STTKNode{
+import java.util.List;
+
+public abstract class AbstractIdentifiable implements Identifiable, STTKNode, adaptable{
 	
 	private final Identifier id;
+	protected STTKNOdeImpl nodeImpl = new STTKNOdeImpl();
 
 	protected AbstractIdentifiable(Identifier id) {
 		this.id=id;
@@ -28,6 +31,21 @@ public abstract class AbstractIdentifiable implements Identifiable, STTKNode{
 		return id;
 	}
 	
+	T adapt(Class<T> targetType)
+	  if (targettype.equals(SttkNode.class))
+          return internalNodeRepresntation;
+	eklse return null
+			
+	protected STTKNOdeImpl implements STTKNOde7
+	....  getIdentifiable()7
+	              return AstractIdentifable.this;
+	
+	@Override
+	public List<STTKNode> getChildren() {
+		return klllllllllllllllllllllist;
+	}
+	
+	add(STTKNOde child)
 	
 	
 
