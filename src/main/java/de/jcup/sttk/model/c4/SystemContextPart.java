@@ -44,7 +44,7 @@ public abstract class SystemContextPart<T extends SystemContextPart<?>> extends 
 	@SuppressWarnings("unchecked")
 	public T inBoundary(Identifier boundaryId) {
 		this.boundary=systemContext.boundary(boundaryId);
-		this.boundary.addPart(this);
+		//this.boundary.addPart(this);
 		//systemContext.remove(this.getIdentifier(), this);
 		return (T) this;
 	}

@@ -27,7 +27,7 @@ import de.jcup.sttk.model.Identifier;
 //Their can be a container boundary as well, it probably needs a general boundary class
 public class ContextBoundary extends SystemContextPart<ContextBoundary> {
 
-	private Map<Identifier, SystemContextPart<?>> partsIn Boundary = new HashMap<>();
+	private Map<Identifier, SystemContextPart<?>> partsInBoundary = new HashMap<>();
 
 	protected ContextBoundary(Identifier id, SystemContext systemContext) {
 		super(id, systemContext);

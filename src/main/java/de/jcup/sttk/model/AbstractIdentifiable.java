@@ -17,10 +17,10 @@ package de.jcup.sttk.model;
 
 import java.util.List;
 
-public abstract class AbstractIdentifiable implements Identifiable, STTKNode, adaptable{
+public abstract class AbstractIdentifiable implements Identifiable /*,  STTKNode , adaptable*/{
 	
 	private final Identifier id;
-	protected STTKNOdeImpl nodeImpl = new STTKNOdeImpl();
+	//protected STTKNOdeImpl nodeImpl = new STTKNOdeImpl();
 
 	protected AbstractIdentifiable(Identifier id) {
 		this.id=id;
@@ -31,22 +31,20 @@ public abstract class AbstractIdentifiable implements Identifiable, STTKNode, ad
 		return id;
 	}
 	
-	T adapt(Class<T> targetType)
-	  if (targettype.equals(SttkNode.class))
-          return internalNodeRepresntation;
-	eklse return null
-			
-	protected STTKNOdeImpl implements STTKNOde7
-	....  getIdentifiable()7
-	              return AstractIdentifable.this;
+//	T adapt(Class<T> targetType)
+//	  if (targettype.equals(SttkNode.class))
+//          return internalNodeRepresntation;
+//	eklse return null
+//			
+//	protected STTKNOdeImpl implements STTKNOde7
+//	....  getIdentifiable()7
+//	              return AstractIdentifable.this;
+//	
+//	@Override
+//	public List<STTKNode> getChildren() {
+//		return klllllllllllllllllllllist;
+//	}
+//	
+//	add(STTKNOde child)
 	
-	@Override
-	public List<STTKNode> getChildren() {
-		return klllllllllllllllllllllist;
-	}
-	
-	add(STTKNOde child)
-	
-	
-
 }

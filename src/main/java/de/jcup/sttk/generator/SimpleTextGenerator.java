@@ -32,15 +32,15 @@ public class SimpleTextGenerator {
 					
 					ContextBoundary context = (ContextBoundary) part;
 					
-					for (Map.Entry<Identifier,SystemContextPart<?>> contextEntry : context.getParts().entrySet()) {
-						SystemContextPart<?> contextPart = contextEntry.getValue();
-						
-						if (contextPart.getClass() == Person.class) {
-							sb.add("\t" + contextPart.toString());
-						} else if (contextPart.getClass() == System.class) {
-							sb.add("\t" + contextPart.toString());
-						}
-					}
+//					for (Map.Entry<Identifier,SystemContextPart<?>> contextEntry : context.getParts().entrySet()) {
+//						SystemContextPart<?> contextPart = contextEntry.getValue();
+//						
+//						if (contextPart.getClass() == Person.class) {
+//							sb.add("\t" + contextPart.toString());
+//						} else if (contextPart.getClass() == System.class) {
+//							sb.add("\t" + contextPart.toString());
+//						}
+//					}
 					
 					sb.add("end");
 					

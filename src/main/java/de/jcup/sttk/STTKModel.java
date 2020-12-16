@@ -15,20 +15,23 @@
  */
 package de.jcup.sttk;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 
 import de.jcup.sttk.model.Identifier;
+import de.jcup.sttk.model.NodeManager;
 import de.jcup.sttk.model.Technology;
 import de.jcup.sttk.model.c4.SystemContext;
 
 public class STTKModel {
 
 	private SystemContext systemContext;
-	private Map<Identifier, Technology> technologies = new LinkedHashMap<>();
+	private NodeManager manager;
+	
+	private Map<Identifier, Technology> technologies = new HashMap<>();
 	
 	public STTKModel() {
-		systemContext=new SystemContext(this);
+		systemContext = new SystemContext(this);
 	}
 	
 	public SystemContext getSystemContext() {

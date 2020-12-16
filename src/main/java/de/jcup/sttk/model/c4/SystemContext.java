@@ -40,7 +40,6 @@ public class SystemContext {
 	}
 
 	public System system(Identifier id) {
-		//return systems.computeIfAbsent(id, this::createSystem);
 		return (System) parts.computeIfAbsent(id, this::createSystem);
 	}
 	
@@ -49,7 +48,6 @@ public class SystemContext {
 	}
 
 	public Person person(Identifier id) {
-		// return people.computeIfAbsent(id, this::createPerson);
 		return (Person) parts.computeIfAbsent(id, this::createPerson);
 	}
 
@@ -58,7 +56,6 @@ public class SystemContext {
 	}
 
 	public ContextBoundary boundary(Identifier id) {
-		// return boundaries.computeIfAbsent(id, this::createBoundary);
 		return (ContextBoundary) parts.computeIfAbsent(id, this::createBoundary);
 	}
 
