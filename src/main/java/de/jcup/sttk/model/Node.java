@@ -1,33 +1,55 @@
 package de.jcup.sttk.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 public class Node {
-	AbstractIdentifiable identifiable;
-	Set<Node> children = new HashSet<>();
+	private AbstractIdentifiable identifiable;
+	private Map<Identifier, Node> children;
 	
-	public Node(AbstractIdentifiable identifiable) {
+	private Node(AbstractIdentifiable identifiable) {
 		this.identifiable = identifiable;
+	}
+	
+	public static Node of(AbstractIdentifiable identifiable) {
+		if (identifiable == null) {
+			throw new IllegalArgumentException("The identifiable cannot be null!");
+		}
+		
+		if (identifiable.getIdentifier() == null) {
+			throw new IllegalArgumentException("The identifier of the identifier cannot be null!");
+		}
+		
+		return new Node(identifiable);
 	}
 	
 	public AbstractIdentifiable getIdentifiable() {
 		return identifiable;
 	}
 
-	public Set<Node> getChildren() {
-		return children;
+	public Optional<Map<Identifier, Node>> getChildren() {
+		return Optional.ofNullable(children);
 	}
 	
 	public boolean addChild(Node child) {
-		return children.add(child);
+		initializeChildren();
+
+		return children.put(child.getIdentifiable().getIdentifier(), child) != null;
 	}
 	
-	public boolean hasChildren() {	
-		return !children.isEmpty();
+	public boolean hasChildren() {
+		boolean hasChildren = false;
+		
+		if (children != null && !children.isEmpty()) {
+			hasChildren = true;
+		}
+		return hasChildren;
 	}
 	
-	/*public NodeType getType() {
-		return null;
-	}*/
+	private void initializeChildren() {
+		if (children == null) {
+			children = new HashMap<>();
+		}
+	}
 }

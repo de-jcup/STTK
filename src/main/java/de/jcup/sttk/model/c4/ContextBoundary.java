@@ -16,11 +16,8 @@
 package de.jcup.sttk.model.c4;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
-import de.jcup.sttk.model.AbstractIdentifiable;
 import de.jcup.sttk.model.Identifier;
 
 //TODO this class needs to be worked on

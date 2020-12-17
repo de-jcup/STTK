@@ -33,12 +33,12 @@ public abstract class SystemContextPart<T extends SystemContextPart<?>> extends 
 		this.systemContext=systemContext;
 	}
 	
-	public SystemContextRelationShipDefinition does(String what) {
+	public SystemContextRelationShipDefinition<?> does(String what) {
 		return does(what, STTK.usage().isCalling());
 	}
 	
-	public SystemContextRelationShipDefinition does(String what, UsageDefinition usage) {
-		return new SystemContextRelationShipDefinition(what, this, usage);
+	public SystemContextRelationShipDefinition<T> does(String what, UsageDefinition usage) {
+		return new SystemContextRelationShipDefinition<T>(what, this, usage);
 	}
 	
 	@SuppressWarnings("unchecked")

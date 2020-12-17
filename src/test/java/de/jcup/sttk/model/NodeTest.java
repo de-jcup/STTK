@@ -3,83 +3,127 @@ package de.jcup.sttk.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import de.jcup.sttk.STTKModel;
-import de.jcup.sttk.model.c4.Container;
+import de.jcup.sttk.model.c4.ContextBoundary;
 import de.jcup.sttk.model.c4.Person;
 import de.jcup.sttk.model.c4.System;
 
 public class NodeTest {
-	private STTKModel model;
-	
-	@BeforeEach
-	void init() {
-		model = new STTKModel();
-	}
-	
 	@Test
-	void node_with_internal_person() {
-		/* Prepare */
-		Identifier identfier = new Identifier("Internal Person");
-		Person person = new Person(identfier, model.getSystemContext());
+	void create_node() {
+		/* prepare */
+		Identifier systemId = new Identifier("System");
+		System system = mock(System.class);
+		when(system.getIdentifier()).thenReturn(systemId);
 		
-		/* Execute */
-		Node node = new Node(person);
+		/* execute */
+		Node node = Node.of(system);
 		
-		/* Test */
+		/* test */
 		assertNotNull(node);
-		assertEquals(node.getIdentifiable(), person);
-		assertTrue(node.children.isEmpty());
 	}
 	
 	@Test
-	void small_tree_system_container_internal() {
-		/* Prepare */
-		Identifier systemId = new Identifier("Internal System");
-		Identifier containerId = new Identifier("Internal Container");
-		System system = new System(systemId, model.getSystemContext());
-		Container container = system.zoomIn().container(containerId);
+	void create_node_from_null() {
+		/* execute */	
+		Exception exception = assertThrows(IllegalArgumentException.class, () -> Node.of(null));
 		
-		/* Execute */
-		Node systemNode = new Node(system);
-		Node containerNode = new Node(container);
-		systemNode.addChild(containerNode);
-
-		
-		/* Test */
-		assertNotNull(systemNode);
-		assertEquals(systemNode.getIdentifiable(), system);
-		assertTrue(systemNode.hasChildren());
-		assertNotNull(containerNode);
-		assertEquals(containerNode.getIdentifiable(), container);
+		/* test */
+		assertEquals("The identifiable cannot be null!", exception.getMessage());
 	}
 	
 	@Test
-	void small_tree_system_internal_context_boundary() {
-		/* Prepare */
-		Identifier systemId = new Identifier("Internal System");
-		Identifier contextBoundaryId = new Identifier("Context Boundary");
+	void node_with_no_children() {
+		/* prepare */
+		Identifier systemId = new Identifier("system");
+		System system = mock(System.class);
+		when(system.getIdentifier()).thenReturn(systemId);
 		
-		System system = new System(systemId, model.getSystemContext());
-		//ContextBoundary contextBoundary = system.inBoundary(contextBoundaryId);
+		/* execute */
+		Node node = Node.of(system);
 		
-		/* Execute */
-		Node systemNode = new Node(system);
-		//Node containerNode = new Node(ContextBoundary);
-		//systemNode.addChild(containerNode);
-
-		
-		/* Test */
-		assertNotNull(systemNode);
-		assertEquals(systemNode.getIdentifiable(), system);
-		assertTrue(systemNode.hasChildren());
-		//assertNotNull(containerNode);
-		//assertEquals(containerNode.getIdentifiable(), container);
-		assertFalse(true);
+		/* test */
+		assertNotNull(node);
+		assertFalse(node.hasChildren());
+		assertFalse(node.getChildren().isPresent());
+		assertEquals(system, node.getIdentifiable());
 	}
 	
+	@Test
+	void node_with_no_children_no_identifier() {
+		/* prepare */
+		System system = mock(System.class);
+		
+		/* execute */
+		Exception exception = assertThrows(IllegalArgumentException.class, () -> Node.of(system));
+	
+		/* test */
+		assertEquals("The identifier of the identifier cannot be null!", exception.getMessage());
+	}
+	
+	@Test
+	void node_with_one_child() {
+		/* prepare */
+		Identifier contextBoundaryId = new Identifier("ContextBoundary");
+		Identifier systemId = new Identifier("system");
+		
+		ContextBoundary contextBoundary = mock(ContextBoundary.class);
+		System system = mock(System.class);
+		
+		when(contextBoundary.getIdentifier()).thenReturn(contextBoundaryId);
+		when(system.getIdentifier()).thenReturn(systemId);
+		
+		Node root = Node.of(contextBoundary);
+		Node child = Node.of(system);
+				
+		/* execute */
+		root.addChild(child);
+		
+		/* test */
+		assertTrue(root.hasChildren());
+		assertTrue(root.getChildren().isPresent());
+		assertEquals(1, root.getChildren().get().size());
+		assertTrue(root.getChildren().get().containsValue(child));
+	}
+
+	@Test
+	void node_with_children() {
+		/* prepare */
+		Identifier contextBoundaryId = new Identifier("ContextBoundary");
+		Identifier systemId1 = new Identifier("system1");
+		Identifier systemId2 = new Identifier("system2");
+		Identifier personId = new Identifier("person");
+		
+		ContextBoundary contextBoundary = mock(ContextBoundary.class);
+		System system1 = mock(System.class);
+		Person person = mock(Person.class);
+		System system2 = mock(System.class);
+		
+		when(system1.getIdentifier()).thenReturn(systemId1);
+		when(system2.getIdentifier()).thenReturn(systemId2);
+		when(person.getIdentifier()).thenReturn(personId);
+		when(contextBoundary.getIdentifier()).thenReturn(contextBoundaryId);
+		
+		Node root = Node.of(contextBoundary);
+		Node child1 = Node.of(system1);
+		Node child2 = Node.of(person);
+		Node child3 = Node.of(system2);
+				
+		/* execute */
+		root.addChild(child1);
+		root.addChild(child2);
+		root.addChild(child3);
+		
+		/* test */
+		assertTrue(root.hasChildren());
+		assertTrue(root.getChildren().isPresent());
+		assertEquals(3, root.getChildren().get().size());
+		assertTrue(root.getChildren().get().containsValue(child3));
+	}
 }
