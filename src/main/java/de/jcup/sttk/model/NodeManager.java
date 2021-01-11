@@ -32,7 +32,15 @@ public class NodeManager {
 		
 	}
 	
-	public boolean insert(Node node) {
-		return rootNodes.put(node.getIdentifiable().getIdentifier(), node) != null;
+	public void insert(Node node) {
+		this.insert(node, null);
+	}
+	
+	public void insert(Node node, Node parent) {
+		rootNodes.put(node.getIdentifiable().getIdentifier(), node);
+	}
+	
+	public Map<Identifier, Node> getNodes() {
+		return rootNodes;
 	}
 }

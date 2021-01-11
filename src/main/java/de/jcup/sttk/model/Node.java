@@ -32,10 +32,14 @@ public class Node {
 		return Optional.ofNullable(children);
 	}
 	
-	public boolean addChild(Node child) {
+	public void addChild(Node child) {
 		initializeChildren();
-
-		return children.put(child.getIdentifiable().getIdentifier(), child) != null;
+		
+		children.put(child.getIdentifiable().getIdentifier(), child);
+	}
+	
+	public void removeChild(Node child) {
+		children.remove(child.getIdentifiable().getIdentifier(), child);
 	}
 	
 	public boolean hasChildren() {

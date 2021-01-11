@@ -63,6 +63,7 @@ public class Identifier {
 	public String getDescription() {
 		return description;
 	}
+	
 	@Override
 	public String toString() {
 		return "Identifier [name=" + name + ", description=" + description + ", id=" + id + "]";

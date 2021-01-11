@@ -31,7 +31,7 @@ public class System extends SystemContextPart<System> implements Externalizable 
 	}
 	
 	public System markAsExternal() {
-		external=true;
+		external = true;
 		return this;
 	}
 

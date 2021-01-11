@@ -126,4 +126,28 @@ public class NodeTest {
 		assertEquals(3, root.getChildren().get().size());
 		assertTrue(root.getChildren().get().containsValue(child3));
 	}
+	
+	@Test
+	void node_with_one_child_remove_child() {
+		/* prepare */
+		Identifier contextBoundaryId = new Identifier("ContextBoundary");
+		Identifier systemId = new Identifier("system");
+		
+		ContextBoundary contextBoundary = mock(ContextBoundary.class);
+		System system = mock(System.class);
+		
+		when(contextBoundary.getIdentifier()).thenReturn(contextBoundaryId);
+		when(system.getIdentifier()).thenReturn(systemId);
+		
+		Node root = Node.of(contextBoundary);
+		Node child = Node.of(system);
+				
+		root.addChild(child);
+		
+		/* execute */
+		root.removeChild(child);
+		
+		/* test */
+		assertFalse(root.hasChildren());
+	}
 }

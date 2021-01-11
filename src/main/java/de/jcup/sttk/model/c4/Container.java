@@ -19,12 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jcup.sttk.STTK;
-import de.jcup.sttk.model.AbstractIdentifiable;
 import de.jcup.sttk.model.Identifier;
 import de.jcup.sttk.model.Technology;
 
 public class Container extends SystemPart implements Externalizable {
 	
+	private boolean external;
 	private List<Technology> technologies = new ArrayList<>();
 	List<ContainerRelationShip> relations = new ArrayList<>();
 
@@ -57,9 +57,11 @@ public class Container extends SystemPart implements Externalizable {
 
 	@Override
 	public boolean isExternal() {
-		// TODO Auto-generated method stub
-		return false;
+		return external;
 	}
 	
-
+	public Container markAsExternal() {
+		external = true;
+		return this;
+	}
 }
